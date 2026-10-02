@@ -1,0 +1,67 @@
+{
+  "name": "webforge-ide",
+  "version": "1.0.0",
+  "description": "Полноценная среда для HTML, CSS и JavaScript с живым предпросмотром",
+  "main": "electron/main.js",
+  "author": "WebForge",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "icon": "node scripts/generate-icon.js",
+    "build": "vite build",
+    "dist": "npm run icon && npm run build && electron-builder --win --x64",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.webforge.ide",
+    "productName": "WebForge IDE",
+    "artifactName": "${productName}-${version}-Setup.${ext}",
+    "directories": {
+      "output": "release"
+    },
+    "asar": true,
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-Portable.${ext}"
+    }
+  },
+  "devDependencies": {
+    "@codemirror/lang-css": "^6.2.1",
+    "@codemirror/lang-html": "^6.4.8",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@codemirror/view": "^6.32.0",
+    "codemirror": "^6.0.1",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.3.0",
+    "electron-builder": "^24.13.3",
+    "sharp": "^0.33.4",
+    "vite": "^5.4.0",
+    "wait-on": "^7.2.0"
+  }
+}
