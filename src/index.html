@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' ws://localhost:5173 http://localhost:5173; frame-src 'self' blob: data:;"
+    />
+    <title>WebForge IDE</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"><span></span></div>
+          <div class="brand-text">
+            <h1>WebForge IDE</h1>
+            <p>HTML · CSS · JS</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <label class="switch" title="Автозапуск предпросмотра">
+            <input id="autorun" type="checkbox" checked />
+            <span class="slider"></span>
+          </label>
+
+          <button id="btn-new" class="btn">Новый</button>
+          <button id="btn-open" class="btn">Открыть</button>
+          <button id="btn-save" class="btn primary">Сохранить</button>
+          <button id="btn-export" class="btn">Экспорт HTML</button>
+          <button id="btn-run" class="btn success">▶ Запуск</button>
+          <button id="btn-theme" class="btn icon" title="Переключить тему">☀️</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="sidebar panel">
+          <div class="panel-title">Файлы</div>
+          <div id="file-list" class="file-list"></div>
+          <div class="sidebar-note">
+            Проект сохраняется в JSON. Экспорт создаёт готовый HTML-файл.
+          </div>
+        </aside>
+
+        <main class="editor-area panel">
+          <div id="tabs" class="tabs"></div>
+          <div id="editor-host" class="editor-host"></div>
+        </main>
+
+        <section class="preview-area panel">
+          <div class="panel-header">
+            <span class="panel-title">Предпросмотр</span>
+            <div class="preview-actions">
+              <button id="preview-reload" class="btn mini" title="Обновить предпросмотр">
+                ⟳
+              </button>
+            </div>
+          </div>
+
+          <div class="preview-split">
+            <iframe
+              id="preview-frame"
+              class="preview-frame"
+              title="Предпросмотр"
+              sandbox="allow-scripts allow-modals allow-forms allow-popups"
+            ></iframe>
+
+            <div id="console-panel" class="console-panel">
+              <div class="console-toolbar">
+                <span class="panel-title">Консоль</span>
+
+                <div class="console-filters">
+                  <button data-filter="all" class="chip active">Все</button>
+                  <button data-filter="info" class="chip">Инфо</button>
+                  <button data-filter="warn" class="chip">Warn</button>
+                  <button data-filter="error" class="chip">Error</button>
+                </div>
+
+                <button id="console-clear" class="btn mini">Очистить</button>
+              </div>
+
+              <div id="console-list" class="console-list"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="statusbar">
+        <span id="status-text">Инициализация...</span>
+        <span id="cursor-info"></span>
+      </footer>
+
+      <div id="toast-root" class="toast-root"></div>
+
+      <div id="error-overlay" class="error-overlay" hidden>
+        <div class="error-card">
+          <h2>Сбой интерфейса</h2>
+          <pre id="error-message"></pre>
+          <button id="error-reload" class="btn primary">Перезагрузить</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
